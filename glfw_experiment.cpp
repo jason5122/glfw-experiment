@@ -2,6 +2,7 @@
 #define GLFW_INCLUDE_NONE
 #include "Shader.hpp"
 #include <GLFW/glfw3.h>
+#include <cmath>
 #include <glad/glad.h>
 #include <iostream>
 
@@ -76,6 +77,13 @@ int main() {
         glClear(GL_COLOR_BUFFER_BIT);
 
         shader.use();
+
+        double time_value = glfwGetTime();
+        float green_value = static_cast<float>(sin(time_value) / 2.0 + 0.5);
+        int vertex_color_location =
+            glGetUniformLocation(shader.id, "vertex_color");
+        glUniform4f(vertex_color_location, 0.0f, green_value, 0.0f, 1.0f);
+
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 3);
 
