@@ -9,6 +9,10 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     glViewport(0, 0, width, height);
 }
@@ -131,6 +135,7 @@ int main() {
 
     // don't forget to activate/use the shader before setting uniforms!
     shader.use();
+    shader.set_1int("texture1", 0);
     shader.set_1int("texture2", 1);
 
     while (!glfwWindowShouldClose(window)) {
@@ -144,7 +149,14 @@ int main() {
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, texture2);
 
+        glm::mat4 trans = glm::mat4(1.0f);
+        trans = glm::translate(trans, glm::vec3(0.5f, -0.5f, 0.0f));
+        trans = glm::rotate(trans, (float)glfwGetTime(),
+                            glm::vec3(0.0f, 0.0f, 1.0f));
+
         shader.use();
+        shader.set_4fv("transform", 1, GL_FALSE, glm::value_ptr(trans));
+
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 

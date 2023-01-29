@@ -85,6 +85,12 @@ public:
         glUniform4f(glGetUniformLocation(id, name.c_str()), f1, f2, f3, f4);
     }
 
+    void set_4fv(const std::string& name, int count, bool transpose,
+                 const float* value) const {
+        glUniformMatrix4fv(glGetUniformLocation(id, name.c_str()), count,
+                           transpose, value);
+    }
+
 private:
     void check_compile_errors(unsigned int shader, std::string type) {
         int success;
