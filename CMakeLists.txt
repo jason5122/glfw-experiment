@@ -12,6 +12,6 @@ add_subdirectory(glad/)
 add_executable(glfw-experiment glfw_experiment.cpp)
 target_link_libraries(glfw-experiment OpenGL::GL glfw glad)
 
-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/shaders
-   DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/resources
+    DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
 )

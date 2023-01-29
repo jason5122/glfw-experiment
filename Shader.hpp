@@ -68,6 +68,23 @@ public:
         glUseProgram(id);
     }
 
+    void set_1bool(const std::string& name, bool value) const {
+        glUniform1i(glGetUniformLocation(id, name.c_str()), (int)value);
+    }
+
+    void set_1int(const std::string& name, int value) const {
+        glUniform1i(glGetUniformLocation(id, name.c_str()), value);
+    }
+
+    void set_1float(const std::string& name, float value) const {
+        glUniform1f(glGetUniformLocation(id, name.c_str()), value);
+    }
+
+    void set_4float(const std::string& name, float f1, float f2, float f3,
+                    float f4) const {
+        glUniform4f(glGetUniformLocation(id, name.c_str()), f1, f2, f3, f4);
+    }
+
 private:
     void check_compile_errors(unsigned int shader, std::string type) {
         int success;
