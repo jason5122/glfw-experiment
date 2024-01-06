@@ -2,6 +2,9 @@
 #define SHADER_H
 
 #include <glad/glad.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include <fstream>
 #include <iostream>
@@ -85,10 +88,9 @@ public:
         glUniform4f(glGetUniformLocation(id, name.c_str()), f1, f2, f3, f4);
     }
 
-    void set_4fv(const std::string& name, int count, bool transpose,
-                 const float* value) const {
-        glUniformMatrix4fv(glGetUniformLocation(id, name.c_str()), count,
-                           transpose, value);
+    void set_mat4(const std::string& name, const glm::mat4& mat) const {
+        glUniformMatrix4fv(glGetUniformLocation(id, name.c_str()), 1, GL_FALSE,
+                           &mat[0][0]);
     }
 
 private:
